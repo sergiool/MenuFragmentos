@@ -34,7 +34,7 @@ public class ChamadaFragment extends Fragment {
         final View v = inflater.inflate(R.layout.fragment_blank, container, false);
         realm = Realm.getDefaultInstance();
         ListView lv = (ListView) v.findViewById(R.id.lv);
-        lv.setAdapter(new AlunoAdapter(getActivity()));
+        lv.setAdapter(new AlunoAdapter(getActivity(), NovaAula.ultimaAula));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick (AdapterView<?> adapter, View view, int position, long arg){

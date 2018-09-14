@@ -66,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
                         .beginTransaction()
                         .replace(R.id.const_lay, new NovaAula()).commit();
                 return true;
+            case R.id.action_correcoes:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.const_lay, new FragmentCorrecoes()).commit();
+                return true;
             case R.id.action_fragment3:
                 InputStream inputStream = getResources().openRawResource(R.raw.alunos);
                 CSVFile csvFile = new CSVFile(inputStream);
@@ -78,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
                 realm.commitTransaction();
                 VetorAluno.update();
                 return true;
+            case R.id.action_sair:
+                finish();
+                break;
         }
 
         return super.onOptionsItemSelected(item);

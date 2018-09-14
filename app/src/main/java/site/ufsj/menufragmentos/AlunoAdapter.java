@@ -17,9 +17,11 @@ import io.realm.Realm;
 
 public class AlunoAdapter extends BaseAdapter {
     private Context context;
+    private Aula aula;
 
-    public AlunoAdapter(Context context){
+    public AlunoAdapter(Context context, Aula aula){
         this.context = context;
+        this.aula = aula;
     }
 
     @Override
@@ -59,8 +61,8 @@ public class AlunoAdapter extends BaseAdapter {
         TextView matricula = (TextView) layout.findViewById(R.id.t2);
         matricula.setText(aluno.getMatricula());
 
-        if (NovaAula.ultimaAula != null) {
-            boolean presente = NovaAula.ultimaAula.getAlunos().get(position).isPresente();
+        if (aula != null) {
+            boolean presente = aula.getAlunos().get(position).isPresente();
             if (!presente)
                 layout.setBackgroundColor(Color.RED);
             else

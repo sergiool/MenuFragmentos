@@ -36,7 +36,7 @@ public class BlankFragment2 extends Fragment {
         nome = v.findViewById(R.id.editText);
         matricula = v.findViewById(R.id.editText2);
         sp = (Spinner) v.findViewById(R.id.sp);
-        sp.setAdapter(new AlunoAdapter(getActivity()));
+        sp.setAdapter(new AlunoAdapter(getActivity(), NovaAula.ultimaAula));
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -65,7 +65,7 @@ public class BlankFragment2 extends Fragment {
                 realm.commitTransaction();
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.const_lay, new BlankFragment3()).commit();
+                        .replace(R.id.const_lay, new FragmentCorrecoes()).commit();
             }
         });
 

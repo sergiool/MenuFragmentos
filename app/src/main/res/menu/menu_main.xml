@@ -14,8 +14,18 @@
         android:title="Chamada"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_correcoes"
+        android:orderInCategory="100"
+        android:title="Corrigir"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_fragment3"
         android:orderInCategory="100"
         android:title="Importar"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sair"
+        android:orderInCategory="100"
+        android:title="Sair"
         app:showAsAction="never" />
 </menu>
