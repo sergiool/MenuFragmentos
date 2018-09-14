@@ -5,11 +5,15 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import io.realm.Realm;
 
 public class AlunoAdapter extends BaseAdapter {
     private Context context;
@@ -24,7 +28,8 @@ public class AlunoAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Object getItem(int position)
+    {
         return VetorAluno.alunos.get(position);
     }
 
@@ -54,10 +59,13 @@ public class AlunoAdapter extends BaseAdapter {
         TextView matricula = (TextView) layout.findViewById(R.id.t2);
         matricula.setText(aluno.getMatricula());
 
-        if(position % 2 == 0){
-            layout.setBackgroundColor(Color.YELLOW);
+        if (NovaAula.ultimaAula != null) {
+            boolean presente = NovaAula.ultimaAula.getAlunos().get(position).isPresente();
+            if (!presente)
+                layout.setBackgroundColor(Color.RED);
+            else
+                layout.setBackgroundColor(Color.GREEN);
         }
-
         return layout;
     }
 

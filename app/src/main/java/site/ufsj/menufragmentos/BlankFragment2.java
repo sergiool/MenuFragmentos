@@ -11,17 +11,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import io.realm.Realm;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class BlankFragment2 extends Fragment {
-
+    final Realm realm;
     EditText matricula, nome;
     Spinner sp;
 
     public BlankFragment2() {
         // Required empty public constructor
+        realm = Realm.getDefaultInstance();
     }
 
 
@@ -52,11 +55,14 @@ public class BlankFragment2 extends Fragment {
         });
 
         Button btnSend = (Button) v.findViewById(R.id.button);
+
         btnSend .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                realm.beginTransaction();
                 VetorAluno.alunos.get(sp.getSelectedItemPosition()).setNome(nome.getText().toString());
-                VetorAluno.alunos.get(sp.getSelectedItemPosition()).setMatricula(matricula.getText().toString());
+//                VetorAluno.alunos.get(sp.getSelectedItemPosition()).setMatricula(matricula.getText().toString());
+                realm.commitTransaction();
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.const_lay, new BlankFragment3()).commit();

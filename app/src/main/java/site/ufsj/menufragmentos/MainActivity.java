@@ -10,13 +10,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+
+import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
+
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        realm = Realm.getDefaultInstance();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -27,13 +33,11 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        InputStream inputStream = getResources().openRawResource(R.raw.alunos);
 
-        VetorAluno v = new VetorAluno(inputStream);
           // Fragmento Padrão
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.const_lay, new BlankFragment()).commit();
+                .replace(R.id.const_lay, new NovaAula()).commit();
     }
 
     @Override
@@ -55,17 +59,24 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_fragment1:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.const_lay, new BlankFragment()).commit();
+                        .replace(R.id.const_lay, new ChamadaFragment()).commit();
                 return true;
             case R.id.action_fragment2:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.const_lay, new BlankFragment2()).commit();
+                        .replace(R.id.const_lay, new NovaAula()).commit();
                 return true;
             case R.id.action_fragment3:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.const_lay, new BlankFragment3()).commit();
+                InputStream inputStream = getResources().openRawResource(R.raw.alunos);
+                CSVFile csvFile = new CSVFile(inputStream);
+                ArrayList<String[]> myList = (ArrayList<String[]>) csvFile.read();
+                realm.beginTransaction();
+                for (int i=0; i<myList.size();i++){
+                    realm.copyToRealm(new Aluno(myList.get(i)[1], myList.get(i)[0]));
+                    //    alunos.add(new Aluno(myList.get(i)., myList.get(i)[0]));
+                }
+                realm.commitTransaction();
+                VetorAluno.update();
                 return true;
         }
 

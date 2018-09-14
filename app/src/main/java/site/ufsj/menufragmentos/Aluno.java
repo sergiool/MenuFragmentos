@@ -1,8 +1,15 @@
 package site.ufsj.menufragmentos;
 
-public class Aluno {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class Aluno extends RealmObject {
     private String nome;
+    @PrimaryKey
     private String matricula;
+
+    public Aluno(){};
+
     public Aluno(String nome, String matricula){
         this.nome = nome;
         this.matricula = matricula;
