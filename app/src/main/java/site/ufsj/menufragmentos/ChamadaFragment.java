@@ -53,7 +53,4 @@ public class ChamadaFragment extends Fragment {
         });
         return v;
     }
-
-    public void OnClick(View v) {
-    }
 }

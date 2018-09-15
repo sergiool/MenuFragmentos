@@ -29,6 +29,10 @@ public class AlunoAdapter extends BaseAdapter {
         return VetorAluno.alunos.size();
     }
 
+    public void setAula(Aula aula) {
+        this.aula = aula;
+    }
+
     @Override
     public Object getItem(int position)
     {
