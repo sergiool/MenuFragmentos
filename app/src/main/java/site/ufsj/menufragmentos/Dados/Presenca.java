@@ -1,4 +1,4 @@
-package site.ufsj.menufragmentos;
+package site.ufsj.menufragmentos.Dados;
 
 import io.realm.RealmObject;
 

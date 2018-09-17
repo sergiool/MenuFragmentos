@@ -1,4 +1,4 @@
-package site.ufsj.menufragmentos;
+package site.ufsj.menufragmentos.Adapters;
 
 import java.io.BufferedReader;
 import java.io.IOException;

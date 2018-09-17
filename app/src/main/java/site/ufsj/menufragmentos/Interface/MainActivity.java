@@ -1,4 +1,4 @@
-package site.ufsj.menufragmentos;
+package site.ufsj.menufragmentos.Interface;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +13,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import io.realm.Realm;
+import site.ufsj.menufragmentos.Adapters.CSVFile;
+import site.ufsj.menufragmentos.Dados.Aluno;
+import site.ufsj.menufragmentos.R;
+import site.ufsj.menufragmentos.Dados.VetorAluno;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
           // Fragmento Padrão
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.const_lay, new NovaAula()).commit();
+                .replace(R.id.const_lay, new NovaAulaFragment()).commit();
     }
 
     @Override
@@ -56,20 +60,20 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         switch (id){
-            case R.id.action_fragment1:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.const_lay, new ChamadaFragment()).commit();
-                return true;
             case R.id.action_fragment2:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.const_lay, new NovaAula()).commit();
+                        .replace(R.id.const_lay, new NovaAulaFragment()).commit();
                 return true;
             case R.id.action_correcoes:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.const_lay, new FragmentCorrecoes()).commit();
+                        .replace(R.id.const_lay, new CorrecoesFragment()).commit();
+                return true;
+            case R.id.foto_aluno:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.const_lay, new FotoFragment()).commit();
                 return true;
             case R.id.action_fragment3:
                 InputStream inputStream = getResources().openRawResource(R.raw.alunos);
@@ -78,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 realm.beginTransaction();
                 for (int i=0; i<myList.size();i++){
                     realm.copyToRealm(new Aluno(myList.get(i)[1], myList.get(i)[0]));
-                    //    alunos.add(new Aluno(myList.get(i)., myList.get(i)[0]));
                 }
                 realm.commitTransaction();
                 VetorAluno.update();

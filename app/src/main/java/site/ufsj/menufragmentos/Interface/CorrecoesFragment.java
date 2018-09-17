@@ -1,7 +1,6 @@
-package site.ufsj.menufragmentos;
+package site.ufsj.menufragmentos.Interface;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,15 +16,18 @@ import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import site.ufsj.menufragmentos.Adapters.AlunoAdapterSpinner;
+import site.ufsj.menufragmentos.Dados.Aula;
+import site.ufsj.menufragmentos.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentCorrecoes extends Fragment {
+public class CorrecoesFragment extends Fragment {
 
-    AlunoAdapter alunoAdapter;
-    public FragmentCorrecoes() {
+    AlunoAdapterSpinner alunoAdapter;
+    public CorrecoesFragment() {
         // Required empty public constructor
     }
 
@@ -50,7 +52,7 @@ public class FragmentCorrecoes extends Fragment {
 
         final Spinner sp = v.findViewById(R.id.spinner);
         sp.setAdapter(adapter);
-        alunoAdapter = new AlunoAdapter(getActivity(), aulas.get(sp.getSelectedItemPosition()));
+        alunoAdapter = new AlunoAdapterSpinner(getActivity(), aulas.get(sp.getSelectedItemPosition()));
         final Spinner sp2 = v.findViewById(R.id.spinner2);
         sp2.setAdapter(alunoAdapter);
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -59,11 +61,10 @@ public class FragmentCorrecoes extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // TODO Auto-generated method stub
                 alunoAdapter.setAula(aulas.get(position));
-                check.setChecked(aulas.get(position).getAlunos().get(sp2.getSelectedItemPosition()).isPresente());
-                if (check.isChecked())
-                    sp2.getSelectedView().setBackgroundColor(Color.GREEN);
-                else
-                    sp2.getSelectedView().setBackgroundColor(Color.RED);
+                System.out.println("SP1: " + position + "SP2: "+sp2.getSelectedItemPosition());
+                if (position < aulas.size() && sp2.getSelectedItemPosition() < aulas.get(position).getAlunos().size()) {
+                    check.setChecked(aulas.get(position).getAlunos().get(sp2.getSelectedItemPosition()).isPresente());
+                }
             }
 
             @Override
@@ -72,12 +73,14 @@ public class FragmentCorrecoes extends Fragment {
 
             }
         });
+
         sp2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // TODO Auto-generated method stub
-                check.setChecked(aulas.get(sp.getSelectedItemPosition()).getAlunos().get(position).isPresente());
+                if (sp.getSelectedItemPosition() < aulas.size() && position  < aulas.get(position).getAlunos().size())
+                    check.setChecked(aulas.get(sp.getSelectedItemPosition()).getAlunos().get(position).isPresente());
             }
 
             @Override
@@ -93,15 +96,11 @@ public class FragmentCorrecoes extends Fragment {
                 realm.beginTransaction();
                 aulas.get(sp.getSelectedItemPosition()).getAlunos().get(sp2.getSelectedItemPosition()).setPresente(check.isChecked());
                 realm.commitTransaction();
-                if (check.isChecked())
-                    sp2.getSelectedView().setBackgroundColor(Color.GREEN);
-                else
-                    sp2.getSelectedView().setBackgroundColor(Color.RED);
             }
         });
 
-        check.setChecked(aulas.get(sp.getSelectedItemPosition()).getAlunos().get(sp.getSelectedItemPosition()).isPresente());
-
+//        check.setChecked(aulas.get(sp.getSelectedItemPosition()).getAlunos().get(sp2.getSelectedItemPosition()).isPresente());
+        System.out.println("SP1: " + sp.getSelectedItemPosition() + "SP2: "+sp2.getSelectedItemPosition());
         return v;
     }
 

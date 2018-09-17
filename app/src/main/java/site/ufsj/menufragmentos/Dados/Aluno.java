@@ -1,4 +1,4 @@
-package site.ufsj.menufragmentos;
+package site.ufsj.menufragmentos.Dados;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -7,6 +7,16 @@ public class Aluno extends RealmObject {
     private String nome;
     @PrimaryKey
     private String matricula;
+    private byte [] foto = null;
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+
 
     public Aluno(){};
 

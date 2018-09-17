@@ -1,4 +1,4 @@
-package site.ufsj.menufragmentos;
+package site.ufsj.menufragmentos.Interface;
 
 
 import android.app.DatePickerDialog;
@@ -18,18 +18,22 @@ import java.util.Date;
 import java.util.Locale;
 
 import io.realm.Realm;
+import site.ufsj.menufragmentos.Dados.Aula;
+import site.ufsj.menufragmentos.Dados.Presenca;
+import site.ufsj.menufragmentos.R;
+import site.ufsj.menufragmentos.Dados.VetorAluno;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NovaAula extends Fragment {
+public class NovaAulaFragment extends Fragment {
 
     private Realm realm;
 
     public static Aula ultimaAula;
 
-    public NovaAula() {
+    public NovaAulaFragment() {
         // Required empty public constructor
     }
 
@@ -95,7 +99,7 @@ public class NovaAula extends Fragment {
                 Aula aula = realm.createObject(Aula.class);
                 aula.setData(convertedDate);
                 aula.setConteudo(editcont.getText().toString());
-                for (int i=0; i<VetorAluno.alunos.size();i++){
+                for (int i = 0; i< VetorAluno.alunos.size(); i++){
                     Presenca p =  realm.createObject(Presenca.class);
                     p.setAluno(VetorAluno.alunos.get(i));
                     p.setPresente(false);

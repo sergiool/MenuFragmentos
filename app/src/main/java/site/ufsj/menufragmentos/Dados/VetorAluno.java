@@ -1,8 +1,4 @@
-package site.ufsj.menufragmentos;
-
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+package site.ufsj.menufragmentos.Dados;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
